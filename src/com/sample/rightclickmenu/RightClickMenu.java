@@ -41,12 +41,12 @@ public class RightClickMenu {
             //设置打开窗口的标题 （如果不设置默认显示“另存为”或打“开”）
             fileChooser.setTitle("保存文件");
             //保存文件的默认名
-            fileChooser.setInitialFileName(attribute.getImageName());
+//            fileChooser.setInitialFileName(attribute.getImageName());
             //打开窗口默认路径
-            fileChooser.setInitialDirectory(new File("D:" + File.separator + "Programming" + File.separator + "api"));
+//            fileChooser.setInitialDirectory(new File("D:" + File.separator + "Programming" + File.separator + "api"));
             //上传文件类型筛选
             fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("图片类型", "*.png", "*.jpg","*.gif"),
+                    new FileChooser.ExtensionFilter("图片类型", "*.png", "*.jpg", "*.gif"),
                     new FileChooser.ExtensionFilter("所有", "*.*")
             );
             //打开一个窗口(选择文件后返回文件的路径)(单选，只能选择一个文件)

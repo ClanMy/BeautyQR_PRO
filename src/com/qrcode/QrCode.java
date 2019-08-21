@@ -18,8 +18,6 @@ import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,8 +30,6 @@ public class QrCode {
     private AttributePoJo attribute = AttributePoJo.getAttribute();
     //FX全局组件
     private FxAttributePoJo fxAttribute = FxAttributePoJo.getFxAttributePoJo();
-    //日期个格式
-    private String dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-S").format(new Date());
     //当前桌面路径(输出路径)
     private String desPath = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath() + File.separator;
     //格式
@@ -78,16 +74,18 @@ public class QrCode {
         String format = attribute.getFormat();
         //要输出的二维码
         BitMatrix bitMatrix = attribute.getBitMatrix();
-
         //判断是否有自定义路径，如果没有就使用本地桌面
         if (outPath == null || "".equals(outPath)) {
             outPath = desPath;
         }
+        //判断图片格式为空时就设置默认值
+        if (format == null || "".equals(format)) {
+            format = "png";
+        }
         //判断是否有二维码
         if (bitMatrix != null) {
             //输出路径
-            attribute.setImageName(dateFormat);
-            Path paint = new File(outPath + dateFormat + "." + format).toPath();
+            Path paint = new File(outPath + attribute.getImageName() + "." + format).toPath();
             try {
                 //图片输出
                 MatrixToImageWriter.writeToPath(bitMatrix, format, paint);

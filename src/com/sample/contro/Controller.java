@@ -19,7 +19,6 @@ public class Controller {
         borderPane.setTop(new Top().getNode());
         //中部内容
         borderPane.setCenter(new Content().getNode());
-
         //场景
         Scene scene = new Scene(borderPane, 500, 700);
         scene.getStylesheets().add("com/sample/css/PointStage.css");

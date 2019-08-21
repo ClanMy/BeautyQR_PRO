@@ -27,6 +27,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.awt.image.BufferedImage;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Content implements FXBeas {
 
@@ -56,6 +58,8 @@ public class Content implements FXBeas {
 
     @Override
     public Node getNode() {
+        //设置默认图片名称（日期个格式）
+        attribute.setImageName(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-S").format(new Date()));
         //默认宽高
         qrCode_Width.setText("300");
         qrCode_Height.setText("300");
@@ -77,22 +81,23 @@ public class Content implements FXBeas {
 
     //二维码属性
     private GridPane qrCodeAttribute() {
-
         //多选框初始化默认选中状态
         OpenOrClose.setSelected(true);
+        //监听事件判断是否绑定
+        OpenOrClose.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            //当选择框为true时绑定
+            if (newValue) {
+                qrCode_Height.textProperty().bindBidirectional(qrCode_Width.textProperty());
+            } else {
+                qrCode_Height.textProperty().unbindBidirectional(qrCode_Width.textProperty());
+            }
+        });
         //图片格式
         choiceBox.getItems().addAll("PNG", "JPG", "GIF");
         //默认选择第一个
         choiceBox.getSelectionModel().selectFirst();
-        //判断是否绑定
-        boolean closeSelected = OpenOrClose.isSelected();
-        //绑定（暂时为未实现绑定切换）
-        if (closeSelected) {
-            qrCode_Width.textProperty().bindBidirectional(qrCode_Height.textProperty());
-        }
-        //选择图片格式
-        choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> attribute.setFormat(newValue));
-
+        //选择图片格式(并设置为小写)
+        choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> attribute.setFormat(newValue.toLowerCase()));
         //网格布局
         GridPane gridPane = new GridPane();
         //子组件对齐方式
@@ -101,7 +106,7 @@ public class Content implements FXBeas {
         gridPane.setHgap(10);
         //垂直间距
         gridPane.setVgap(10);
-
+        //布局
         gridPane.add(new Label("宽："), 0, 0);
         gridPane.add(qrCode_Width, 1, 0);
         //第三位，第四位，合并单元格
@@ -146,7 +151,6 @@ public class Content implements FXBeas {
             } else {
                 attribute.setContent(content);
             }
-
             //获取生成的二维码
             BitMatrix bitMatrix = qrCode.generate();
             //将生成的二维码放入对象中

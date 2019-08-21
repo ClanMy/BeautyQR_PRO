@@ -18,7 +18,7 @@ public class AttributePoJo {
      */
     private String format;
     /**
-     * 图片格式
+     * 图片名称
      */
     private String imageName;
     /**
