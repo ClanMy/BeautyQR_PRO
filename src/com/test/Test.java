@@ -1,8 +1,5 @@
 package com.test;
 
-import com.qrcode.QrCode;
-import com.sample.attributeobject.AttributePoJo;
-
 public class Test {
 
     public static void main(String[] args) {

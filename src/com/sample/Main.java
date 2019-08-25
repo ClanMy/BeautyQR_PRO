@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        new Controller().mainStage();
+        new Controller().mainStage(primaryStage);
     }
 
 
