@@ -74,6 +74,8 @@ public class Content implements FXBeas {
         labellogo.setFont(Font.font(14));
         labellogo.setStyle("-fx-text-fill: #000000");
         tooltip.setGraphic(new VBox(5, labellogo, logo_imageView));
+        //设置显示内容字体大小
+        contentTextArea.setFont(Font.font(16));
         //默认宽高
         qrCode_Width.setText("300");
         qrCode_Height.setText("300");
